@@ -175,7 +175,7 @@ public class Fachada {
 		}
 		return ingressosGerados;
 	}
-}
+
 
     public List<Filme> listarFilmes() {
         return cadastroFilme.listarFilmes();

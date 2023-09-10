@@ -62,7 +62,7 @@ public class CadastroSessao implements InterfaceCadastroSessao {
 
         Sessao novaSessao = colecaoSessao.save(sessao);
         return novaSessao;
-    }}
+    }
     }
     
-    }
+    

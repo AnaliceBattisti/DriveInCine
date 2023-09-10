@@ -3,31 +3,20 @@ package br.edu.ufape.poo.driveincine.negocio.basica;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Inheritance;
-import jakarta.persistence.InheritanceType;
+import jakarta.persistence.PrimaryKeyJoinColumn;
 
 @Entity
-@Inheritance(strategy = InheritanceType.JOINED)
+@PrimaryKeyJoinColumn(name = "idPessoa")
 public class Funcionario extends Pessoa {
-		@Id
-		@GeneratedValue(strategy = GenerationType.IDENTITY)
-		private long id;
 	  	private String cargo;
-	    private String horarioTrabalho;
-	    private double salario;
 	    private boolean ativo;
 	    private String login;
 	    private String senha;
-	    
-	    public Funcionario() {}
-	    
-	    public Funcionario(String nome, String rg, String cpf, String endereco, String telefone, String dataNasc,
-	    String cargo, String horarioTrabalho, double salario, String login, String senha, long id) {
-	        super(id, rg, cpf, endereco, telefone, dataNasc, nome);
+
+	    public Funcionario(String nome, String rg, String cpf, Endereco endereco, String telefone, String dataNasc,
+	    String cargo, String login, String senha, long id) {
+	        super(id, rg, cpf, telefone, endereco, dataNasc, nome);
 	        this.cargo = cargo;
-	        this.horarioTrabalho = horarioTrabalho;
-	        this.salario = salario;
 	        this.ativo = true; 
 	        this.login = login;
 	        this.senha = senha;
@@ -40,22 +29,6 @@ public class Funcionario extends Pessoa {
 
 	    public void setCargo(String cargo) {
 	        this.cargo = cargo;
-	    }
-
-	    public String getHorarioTrabalho() {
-	        return horarioTrabalho;
-	    }
-
-	    public void setHorarioTrabalho(String horarioTrabalho) {
-	        this.horarioTrabalho = horarioTrabalho;
-	    }
-
-	    public double getSalario() {
-	        return salario;
-	    }
-
-	    public void setSalario(double salario) {
-	        this.salario = salario;
 	    }
 
 	    public boolean isAtivo() {
