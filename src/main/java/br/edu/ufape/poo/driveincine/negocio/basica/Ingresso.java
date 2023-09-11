@@ -16,7 +16,6 @@ public class Ingresso {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	private String qrcode;
-	private String placaDoCarro;
 	
 	@OneToOne
 	@Cascade(CascadeType.ALL)
@@ -33,11 +32,9 @@ public class Ingresso {
 	public Ingresso() {
 		
 	}
-	
-	public Ingresso(String qrcode, String placaDoCarro, float valorDoIngresso) {
+	public Ingresso(String qrcode, float valorDoIngresso) {
 		super();
 		this.qrcode = qrcode;
-		this.placaDoCarro = placaDoCarro;
 	}
 	public long getId() {
 		return id;
@@ -50,12 +47,6 @@ public class Ingresso {
 	}
 	public void setQrcode(String qrcode) {
 		this.qrcode = qrcode;
-	}
-	public String getPlacaDoCarro() {
-		return placaDoCarro;
-	}
-	public void setPlacaDoCarro(String placaDoCarro) {
-		this.placaDoCarro = placaDoCarro;
 	}
 	public Compra getCompra() {
 		return compra;

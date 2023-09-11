@@ -42,9 +42,9 @@ public class IngressoController {
 		return fachada.salvarIngresso(ing);
 	}
 	
-	@DeleteMapping("/ingresso/{ingressoId}")
-	public String apagarIngresso(@PathVariable long ingressoId) throws IngressoNaoExisteException {
-		fachada.removerIngressoId(ingressoId);
+	@DeleteMapping("/ingresso/{id}")
+	public String apagarIngresso(@PathVariable long id) throws IngressoNaoExisteException {
+		fachada.removerIngressoId(id);
 		return "Removido com sucesso";
 	}
 

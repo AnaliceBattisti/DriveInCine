@@ -11,10 +11,11 @@ import br.edu.ufape.poo.driveincine.negocio.basica.Sessao;
 @Repository
 public interface InterfaceColecaoSessao extends JpaRepository<Sessao, Long> {
 
-    List<Sessao> findByHorarioAndDiaExibicao(float horario, String diaExibicao);
+    List<Sessao> findByHorarioAndDiaExibicao(String horario, String diaExibicao);
    
     List<Sessao> findByDiaExibicao(String diaExibicao);
-    List<Sessao> findByHorario(float horario);
+    List<Sessao> findByHorario(String horario);
 
-	List<Sessao> findByFilme(Filme filme);
+	List<Sessao> findByFilme_Id(long idFilme);
+	
 }

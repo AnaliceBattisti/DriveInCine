@@ -10,7 +10,7 @@ import br.edu.ufape.poo.driveincine.negocio.fachada.Fachada;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/")
+@RequestMapping("/api/v1")
 public class FilmeController {
 
     @Autowired
@@ -21,7 +21,12 @@ public class FilmeController {
         return fachada.listarFilmes();
     }
 
-    @GetMapping("filme/{titulo}")
+    @GetMapping("/filmeid/{titulo}")
+    public Long pegarid(@PathVariable String titulo) {
+        return fachada.PegarIdFilme(titulo);
+    }
+
+    @GetMapping("/filme/{titulo}")
     public Filme procurarFilmePeloTitulo(@PathVariable String titulo) {
         return fachada.procurarFilmePeloTitulo(titulo);
     }

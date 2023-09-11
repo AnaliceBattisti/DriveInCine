@@ -55,6 +55,7 @@ public class Fachada {
 	@Autowired
 	private InterfaceCadastroCompra cadastroCompra;
 	
+<<<<<<< HEAD
 	@Autowired  InterfaceCadastroFilme cadastroFilme;
 	
 	@Autowired
@@ -65,11 +66,17 @@ public class Fachada {
 	
 	@Autowired
 	private InterfaceCadastroGestor cadastroGestor; 
+=======
+	@Autowired InterfaceCadastroFilme cadastroFilme;
+	
+	
+>>>>>>> 8153c2e28ecf3dc20f68a1a226a7e1172c41d9ea
 
     public Sessao procurarSessaoPeloId(long id) {
         return cadastroSessao.procurarSessaoPeloId(id);
     }
 
+<<<<<<< HEAD
     public void excluirFuncionario(Long id) { 
     	cadastroFuncionario.excluirFuncionario(id);
     }
@@ -119,6 +126,9 @@ public class Fachada {
     public  List<Sessao> procurarSessoesPeloFilme(Filme filme) {
         return cadastroSessao.procurarSessoesPelofilme(filme);
     }
+=======
+    
+>>>>>>> 8153c2e28ecf3dc20f68a1a226a7e1172c41d9ea
 
     public List<Sessao> listarTodasSessoes() {
         return cadastroSessao.listarTodasSessoes();
@@ -128,11 +138,11 @@ public class Fachada {
         cadastroSessao.excluirSessao(id);
     }
 
-    public List<Sessao> procurarSessoesPeloHorarioEData(float horario, String diaExibicao) throws SessaoNaoExisteException {
+    public List<Sessao> procurarSessoesPeloHorarioEData(String horario, String diaExibicao){
         return cadastroSessao.procurarSessoesPeloHorarioEData(horario, diaExibicao);
     }
 
-    public Sessao salvarSessao(Sessao sessao) throws SessaoJaExistenteException, SessaoNaoExisteException {
+    public Sessao salvarSessao(Sessao sessao) throws SessaoJaExistenteException {
         return cadastroSessao.salvarSessao(sessao);
     }
 
@@ -212,8 +222,8 @@ public class Fachada {
 		List<Ingresso> ingressosGerados = new ArrayList<Ingresso>();
 		double valorTotal=0;
 		
-		for (int i=0; i<ing.getVagas().size();i++) {
-			Vaga vagaTemp = cadastroVaga.procurarVagaPeloId(i);
+		for (int i=0; i<ing.getVagas().length;i++) {
+			Vaga vagaTemp = cadastroVaga.procurarVagaPeloId(ing.getVagas()[i]);
 			vagas.add(vagaTemp);
 			valorTotal+=vagaTemp.getValor();
 			vagaTemp.setOcupado(true);
@@ -232,7 +242,6 @@ public class Fachada {
 		for (int i=0; i<vagas.size();i++) {
 			Ingresso novo = new Ingresso();
 			novo.setQrcode("1234");
-			novo.setPlacaDoCarro(ing.getPlacaDoCarro());
 			novo.setSessao(sess);
 			novo.setCompra(compra);
 			novo.setVaga(vagas.get(i));
@@ -242,7 +251,13 @@ public class Fachada {
 		}
 		return ingressosGerados;
 	}
+<<<<<<< HEAD
 
+=======
+	   public Filme ProcurarFilmepeloId(Long id) {
+			return cadastroFilme.procurarFilmePeloId(id);
+		}
+>>>>>>> 8153c2e28ecf3dc20f68a1a226a7e1172c41d9ea
 
     public List<Filme> listarFilmes() {
         return cadastroFilme.listarFilmes();
@@ -287,11 +302,35 @@ public class Fachada {
 
     }
     
-    public Sessao AddFilmeSessao(Sessao sessao ,String titulo) {
-    	Filme filme = cadastroFilme.procurarFilmePeloTitulo(titulo);
+    public Sessao AddFilmeSessao(Sessao sessao ,long id) {
+    	Filme filme = cadastroFilme.procurarFilmePeloId(id);
     	sessao.setFilme(filme);
     	return sessao;
     }
 
+<<<<<<< HEAD
+=======
+    public List<Vaga> procurarSessaoPelaVaga(long id) {
+    	Sessao sessao = cadastroSessao.procurarSessaoPeloId(id);
+    	List<Vaga> vagas = sessao.getVagas();
+		return vagas;
+    	
+    }
+    
+    public long PegarIdFilme(String titulo) {
+    	Filme filme = cadastroFilme.procurarFilmePeloTitulo(titulo);
+    	long id = filme.getid();
+    	return(id);
+    }
+    
+    public List<Sessao> procurarSessoesPorIdFilme(long idFilme) {
+        return cadastroSessao.procurarSessoesPorIdFilme(idFilme);
+    }
+    
+    
+    
+    
+    }
+>>>>>>> 8153c2e28ecf3dc20f68a1a226a7e1172c41d9ea
     
 }

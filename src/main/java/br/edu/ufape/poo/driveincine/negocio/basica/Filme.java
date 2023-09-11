@@ -96,6 +96,7 @@ import jakarta.persistence.OneToMany;
 		public void setGenero(String genero) {
 			this.genero = genero;
 		}
-		
-		
+		public long getid() {
+			return id;
+		}
 }

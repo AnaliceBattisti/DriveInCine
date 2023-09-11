@@ -17,13 +17,13 @@ class CadastroSessaoTest {
 
     @Test
     void testeSalvarSessaoExistente() {
-        Sessao sessao = new Sessao(1, 18.5f, "2023-07-27");
+        Sessao sessao = new Sessao(1, "18:00", "2023-07-27");
         assertThrows(SessaoJaExistenteException.class, () -> cadastroSessao.salvarSessao(sessao));
     }
 
     @Test
     void testeSalvarSessaoNaoExistente() {
-        Sessao sessao = new Sessao(2, 18.5f, "2023-07-27");
+        Sessao sessao = new Sessao(2, "18:30", "2023-07-27");
         assertDoesNotThrow(() -> cadastroSessao.salvarSessao(sessao));
     }
 }

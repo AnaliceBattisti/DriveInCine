@@ -15,7 +15,7 @@ public class InterfaceColecaoSessaoTest {
     @Test
     public void cadastrarSessaoTest() {
         long qtdSessoes = colecaoSessao.count();
-        Sessao sessao = new Sessao(0, 18.5f, "20-10-2023");
+        Sessao sessao = new Sessao(0, "18:30", "20-10-2023");
 
         colecaoSessao.save(sessao);
         long qtdSessoesAposCadastro = colecaoSessao.count();

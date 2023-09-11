@@ -18,7 +18,7 @@ class InterfaceColecaoIngressoTest {
 	void CadastrarIngressoTest() {
 		
 		long qtdIngressos = colecaoIngresso.count();
-		Ingresso ing = new Ingresso("abcd", "PDF1234", 16);
+		Ingresso ing = new Ingresso("abcd", 16);
 		
 		colecaoIngresso.save(ing);
 		long qtdIngressosAposCadastro = colecaoIngresso.count();

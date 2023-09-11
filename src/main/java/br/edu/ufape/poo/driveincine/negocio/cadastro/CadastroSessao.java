@@ -41,20 +41,19 @@ public class CadastroSessao implements InterfaceCadastroSessao {
             throw new SessaoNaoExisteException();
         }
     }
-
-    public List<Sessao> procurarSessoesPeloHorarioEData(float horario, String diaExibicao) throws SessaoNaoExisteException {
+   
+    public List<Sessao> procurarSessoesPorIdFilme(long idFilme) {
+        return colecaoSessao.findByFilme_Id(idFilme);}
+    
+    public List<Sessao> procurarSessoesPeloHorarioEData(String horario, String diaExibicao) {
     	List<Sessao> temSessao = colecaoSessao.findByHorarioAndDiaExibicao(horario, diaExibicao);
-    	if(temSessao.isEmpty()) {
-    		throw new SessaoNaoExisteException();
-    	}
+
         return temSessao;
     }
     
-//    public List<Sessao> procurarSessoesPelofilme(Filme filme) {
-//        return colecaoSessao.findByFilme(filme);
-//    }
+ 
    
-    public Sessao salvarSessao(Sessao sessao) throws SessaoJaExistenteException, SessaoNaoExisteException {
+    public Sessao salvarSessao(Sessao sessao) throws SessaoJaExistenteException {
         List<Sessao> sessoesExistentes = procurarSessoesPeloHorarioEData(sessao.getHorario(), sessao.getDiaExibicao());
         if (!sessoesExistentes.isEmpty()) {
             throw new SessaoJaExistenteException(sessao.getHorario(), sessao.getDiaExibicao());

@@ -64,6 +64,6 @@ public abstract class Vaga {
 	}
 	public void setValor(double valor) {
 		this.valor = valor;
-	}
+	}}
     
 }
