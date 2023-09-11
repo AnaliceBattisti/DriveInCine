@@ -37,7 +37,7 @@ public class SessaoController {
   
     @PostMapping("/sessao/{titulo}")
     public Sessao salvarSessao(@RequestBody Sessao sessao,@PathVariable String titulo) throws SessaoJaExistenteException {
-    	Sessao sessaovagas= fachada.criarVagasParaSessao(sessao);
+    	Sessao sessaovagas = fachada.criarVagasParaSessao(sessao);
     	sessaovagas = fachada.AddFilmeSessao(sessaovagas,titulo );
     	Sessao sessaoSalva = fachada.salvarSessao(sessaovagas);
         return sessaoSalva;

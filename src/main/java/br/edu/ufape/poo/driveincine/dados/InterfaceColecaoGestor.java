@@ -9,4 +9,6 @@ import br.edu.ufape.poo.driveincine.negocio.basica.Gestor;
 @Repository
 public interface InterfaceColecaoGestor extends JpaRepository<Gestor, Long>{
 	List<Gestor> findByLogin(String login);
+	
+	
 }

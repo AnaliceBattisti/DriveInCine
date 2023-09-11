@@ -1,11 +1,14 @@
 package br.edu.ufape.poo.driveincine.negocio.basica;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Inheritance;
 import jakarta.persistence.InheritanceType;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
@@ -16,16 +19,18 @@ public abstract class Pessoa {
 	private String nome;
     private String rg;
     private String cpf;
-    private Endereco endereco;
     private String telefone;
     private String dataNasc;
+    
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "endereco_id") 
+    private Endereco endereco;
     
     public Pessoa (long id,String nome, String rg, String cpf, Endereco endereco, String telefone, String dataNasc) {
         this.nome = nome;
         this.id = id; 
         this.rg = rg;
         this.cpf = cpf;
-        this.setEndereco(endereco);
         this.telefone = telefone;
         this.dataNasc = dataNasc;
    
@@ -85,3 +90,5 @@ public abstract class Pessoa {
 	}
 
 }
+
+

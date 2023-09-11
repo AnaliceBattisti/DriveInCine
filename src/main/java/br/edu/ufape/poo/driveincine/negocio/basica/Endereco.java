@@ -1,9 +1,13 @@
 package br.edu.ufape.poo.driveincine.negocio.basica;
 
 import jakarta.persistence.Embeddable;
+import jakarta.persistence.Id;
 
 @Embeddable
+
 public class Endereco {	
+	@Id
+		private long id; 
 		private String rua;
 	    private String numero;
 	    private String bairro;
@@ -45,5 +49,14 @@ public class Endereco {
 		public String getEstado() {
 			return estado;
 		}
-}
 
+
+		public long getId() {
+			return id;
+		}
+
+
+		public void setId(long id) {
+			this.id = id;
+		}
+}

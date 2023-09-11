@@ -1,6 +1,6 @@
 package br.edu.ufape.poo.driveincine.negocio.cadastro;
 
-import org.hibernate.mapping.List;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import br.edu.ufape.poo.driveincine.dados.InterfaceColecaoGestor;
@@ -10,36 +10,42 @@ import br.edu.ufape.poo.driveincine.negocio.cadastro.excecoes.LoginNaoExclusivoE
 import br.edu.ufape.poo.driveincine.negocio.cadastro.excecoes.PreenchaTudoException;
 
 	@Service
-	public class CadastroGestor implements InterfaceCadastroGestor {
+	public class CadastroGestor implements InterfaceCadastroGestor   {
 	    @Autowired
 	    private InterfaceColecaoGestor colecaoGestor;
-
-	    public boolean verificarLoginExclusivo(String login) {
-	        List<Gestor> gestoresComMesmoLogin = colecaoGestor.findByLogin(login);
-	        return gestoresComMesmoLogin.isEmpty();
+	    
+	    
+	    public Gestor cadastrarGestor(Gestor entity) throws PreenchaTudoException, LoginNaoExclusivoException {
+	        validarCamposObrigatorios(entity);
+	        verificarLoginExclusivo(entity.getLogin());
+	        return colecaoGestor.save(entity);
 	    }
 
-	    public Gestor cadastrarGestor(String nome, String rg, String cpf,
-	            String rua, String bairro, String cidade, String numero, String estado, String cep,
-	            String telefone, String dataNasc, String cargo, String login, String senha)
-	            throws PreenchaTudoException, LoginNaoExclusivoException {
-
-	        if (nome == null || rg == null || cpf == null || rua == null || bairro == null ||
-	                cidade == null || numero == null || estado == null || cep == null || telefone == null ||
-	                dataNasc == null || cargo == null || login == null || senha == null) {
-	            throw new PreenchaTudoException();
+	    public void validarCamposObrigatorios(Gestor entity) throws PreenchaTudoException {
+	        if (entity.getNome() == null || entity.getNome().isEmpty() ||
+	            entity.getRg() == null || entity.getRg().isEmpty() ||
+	            entity.getCpf() == null || entity.getCpf().isEmpty() ||
+	            entity.getEndereco() == null ||
+	            entity.getTelefone() == null || entity.getTelefone().isEmpty() ||
+	            entity.getDataNasc() == null || entity.getDataNasc().isEmpty() ||
+	            entity.getLogin() == null || entity.getLogin().isEmpty() ||
+	            entity.getSenha() == null || entity.getSenha().isEmpty()) {
+	            throw new PreenchaTudoException(); 
 	        }
+	    }
 
-	        if (!verificarLoginExclusivo(login)) {
-	            throw new LoginNaoExclusivoException();
+	    public void verificarLoginExclusivo(String login) throws LoginNaoExclusivoException {
+	        if (colecaoGestor.findByLogin(login) != null) {
+	            throw new LoginNaoExclusivoException(login);
 	        }
+	    }
+	    
+	  
+		public void excluirGestor(Long id) {
+	        colecaoGestor.deleteById(id);
+	    }
 
-	        Endereco endereco = new Endereco(rua, numero, bairro, cidade, estado, cep);
-	        Gestor gestor = new Gestor(nome, rg, cpf, endereco, telefone, dataNasc, cargo, login, senha, 0);
-
-	        return colecaoGestor.save(gestor);
+		public List<Gestor> listarTodosGestores() {
+	        return colecaoGestor.findAll();
 	    }
 	}
-
-
-

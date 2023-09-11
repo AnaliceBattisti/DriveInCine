@@ -10,34 +10,43 @@ import br.edu.ufape.poo.driveincine.negocio.cadastro.excecoes.LoginNaoExclusivoE
 import br.edu.ufape.poo.driveincine.negocio.cadastro.excecoes.PreenchaTudoException;
 
 @Service
-public class CadastroCliente implements InterfaceCadastroCliente {
+public class CadastroCliente implements InterfaceCadastroCliente{
     @Autowired
     private InterfaceColecaoCliente colecaoCliente;
 
-    public boolean verificarLoginExclusivo(String login) {
-        List<Cliente> clientesComMesmoLogin = colecaoCliente.findByLogin(login);
-        return clientesComMesmoLogin.isEmpty();
+	public void verificarLoginExclusivo(String login) throws LoginNaoExclusivoException {
+        if (colecaoCliente.findByLogin(login) != null) {
+            throw new LoginNaoExclusivoException(login);
+        }
+    }
+    
+	public Cliente cadastrarCliente(Cliente entity) throws PreenchaTudoException, LoginNaoExclusivoException {
+        validarCamposObrigatorios(entity);
+        verificarLoginExclusivo(entity.getLogin()); 
+        return colecaoCliente.save(entity);
     }
 
-    public Cliente cadastrarCliente(String nome, String rg, String cpf,
-            String rua, String bairro, String cidade, String numero, String estado,String cep,
-            String telefone, String dataNasc, String login, String senha)
-            throws PreenchaTudoException, LoginNaoExclusivoException {
-        
-        if (nome == null || rg == null || cpf == null || rua == null || bairro == null ||
-                cidade == null || numero == null || estado == null || cep == null|| telefone == null ||
-                dataNasc == null || login == null || senha == null) {
-            throw new PreenchaTudoException();
+   
+	public void validarCamposObrigatorios(Cliente entity) throws PreenchaTudoException {
+        if (entity.getNome() == null || entity.getNome().isEmpty() ||
+            entity.getRg() == null || entity.getRg().isEmpty() ||
+            entity.getCpf() == null || entity.getCpf().isEmpty() ||
+            entity.getEndereco() == null ||
+            entity.getTelefone() == null || entity.getTelefone().isEmpty() ||
+            entity.getDataNasc() == null || entity.getDataNasc().isEmpty() ||
+            entity.getLogin() == null || entity.getLogin().isEmpty() ||
+            entity.getSenha() == null || entity.getSenha().isEmpty()) {
+            throw new PreenchaTudoException(); 
         }
-        
-        if (!verificarLoginExclusivo(login)) {
-            throw new LoginNaoExclusivoException();
-        }
-      
-        Endereco endereco = new Endereco(rua,numero, bairro,cidade, estado, cep);
-        Cliente cliente = new Cliente(0, nome, rg, cpf, endereco, telefone, dataNasc, login, senha);
+    }
+    
 
-        return colecaoCliente.save(cliente);
+	public void excluirCliente(Long id) {
+        colecaoCliente.deleteById(id);
+    }
+
+    
+	public List<Cliente> listarTodosClientes() {
+        return colecaoCliente.findAll();
     }
 }
-	

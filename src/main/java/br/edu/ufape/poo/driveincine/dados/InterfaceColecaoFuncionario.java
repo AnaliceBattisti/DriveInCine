@@ -10,4 +10,6 @@ import br.edu.ufape.poo.driveincine.negocio.basica.Funcionario;
 public interface InterfaceColecaoFuncionario extends JpaRepository<Funcionario, Long>{
 
 	List<Funcionario> findByLogin(String login);
+
+	
 }
